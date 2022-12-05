@@ -1,33 +1,36 @@
-#include <math.h>
 #include <stdio.h>
+#include <math.h>
 
-double Integral(long int n)
-{
-    double f = 0.0f, x, h = 3.0f / n;
-    for (int i = 0; i < n; i++)
-    {
-        x = -2.0 + i * h + h / 2.0f;
-        if (x <= 1)
-            f += exp(-2.0*sin(x));
+double f(int n) {
+    double h, x, intgr = 0;
+    double a = 0;
+    double b = 2;
+    h = (b-a)/n;
+    for (x = a ; x <= 2; x += h)
+     {
+        double func;
+        if (x>=-1 && x<= 1)
+            func = exp(-2.0*sin(x));
         else
-            f += x*x-(1/(tan(x)));
-    }
-    return f * h;
+            func = x*x-(1/(tan(x)));
+        intgr += func;
+        }
+    intgr *= h;
+    return intgr;
 }
 
-int main()
-{
-    double In, I2n, e, answer = 5.52399f;
-    long int n = 1;
-    printf("Введите точность -> ");
+int main() {
+    double e;
+    printf("Введите точность > ");
     scanf("%lf", &e);
-    In = I2n = Integral(n);
-    do
-    {
-        In = I2n;
-        n *= 2;
-        I2n = Integral(n);
-        printf("| n = %ld | I = %lf | D = %lf |  \n\n", n, I2n, fabs(In - I2n) / 3);
-    } while ((fabs(In - I2n) / 3) >= e);
-    printf(" \n Ответ = %lf \n  In = %lf \n I2n = %lf \n", answer, In, I2n);
+    int n = 1;
+    double intgr1 = 0;
+    double intgr2 = 1;
+    while ((fabs(intgr2 - intgr1) / 3) >= e) {
+            n *= 2;
+            intgr1 = intgr2;
+            intgr2 = f(n * 2);
+    }
+    printf("%lf\n", intgr2);
+    return 0;
 }
