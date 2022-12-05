@@ -1,33 +1,36 @@
 #include <stdio.h>
- int gmd(int n)
- {
-  int min = -1;
-  while(n>0){
-     int d =n % 10;
-     if(min==-1){
-      min = d;
-     }
-     else if(min>d){
-      min = d;
-     }
-     n/=10;
-  }
-  return min;
- } 
- int main()
- {
-  int a;
-  int b;
-  printf("Enter a-> ");
-  scanf("%d", &a);
-  printf("Enter b-> ");
-  scanf("%d", &b);
-  if(b==0)
-  {
-    printf("Division 0!");
-    return 1;
-  }
-  int sum=gmd(a)+gmd(b);
-  printf("%.4f\n",((float)sum/(float)b));
-  return 0;
- }   
+#include <math.h>
+
+double f(int n) {
+    double h, x, intgr = 0;
+    double a = 0;
+    double b = 2;
+    h = (b-a)/n;
+    for (x = a ; x <= 2; x += h)
+     {
+        double func;
+        if (x>=-1 && x<= 1)
+            func = exp(-2.0*sin(x));
+        else
+            func = x*x-(1/(tan(x)));
+        intgr += func;
+        }
+    intgr *= h;
+    return intgr;
+}
+
+int main() {
+    double e;
+    printf("Введите точность > ");
+    scanf("%lf", &e);
+    int n = 1;
+    double intgr1 = 0;
+    double intgr2 = 1;
+    while ((fabs(intgr2 - intgr1) / 3) >= e) {
+            n *= 2;
+            intgr1 = intgr2;
+            intgr2 = f(n * 2);
+    }
+    printf("%lf\n", intgr2);
+    return 0;
+}
