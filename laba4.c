@@ -3,7 +3,7 @@
 
 double f(int n) {
     double h, x, intgr = 0;
-    double a = 0;
+    double a = -1;
     double b = 2;
     h = (b-a)/n;
     for (x = a ; x <= 2; x += h)
