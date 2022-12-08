@@ -1,4 +1,4 @@
-#include <stdio.h>
+##include <stdio.h>
 
 int min(int sum_a, int sum_b)
 {
@@ -8,7 +8,9 @@ int min(int sum_a, int sum_b)
 
 int main()
 {
-    int a=13, b=12, sum_a=0, sum_b=0, b1=b;
+    int a, b, sum_a=0, sum_b=0, b1=b;
+    scanf("%d", &a);
+    scanf("%d", &b);
     float y;
     while (a)
     {
