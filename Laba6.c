@@ -1,4 +1,3 @@
-define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -38,40 +37,42 @@ void reverse(int n, int a[])
         a[ri] = sw;
     }
 }
+void reverse2(int n, int a[],int r)
+{
+    int li, ri, sw;
+    for (li = n+1, ri = r - 1; li < ri; li++, ri--)
+    {
+        sw = a[li];
+        a[li] = a[ri];
+        a[ri] = sw;
+    }
+}
 
 
 int main()
 {
-    srand((unsigned)time(NULL));
-    int* arr, size, value, index;
-
+    srand(time(NULL));
+    int arr, size, value, index;
     printf("array size -> ");
     scanf("%d", &size);
-    
-    arr = (int*)malloc(size * sizeof(int));
-    fill(size, arr);
+    int A[size];
+    fill(size, A);
     printf("source array: ");
-    print(size, arr);
-
+    print(size, A);
     printf("\nvalue to search -> ");
     scanf("%d", &value);
-    index = search(size, arr, value);
-
-    if (index != -1)
+    index = search(size,A,value);
+    if(index!=-1)
     {
-        printf("\nindex of value: %d\n", index);
-        reverse(index, arr);
-        reverse(size - 1 - index, arr + 1 + index);
+        printf("after revese: ");
+        reverse(index,A);
+        reverse2(index,A,size);
     }
     else
     {
-        printf("\nvalue not found\n");
-        reverse(size, arr);
+        printf("after revese: ");
+        reverse(size,A);
     }
-
-    printf("after reverse: ");
-    print(size, arr);
-
-    free(arr);
+    print(size,A);
     return 0;
 }
