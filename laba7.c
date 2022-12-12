@@ -14,7 +14,7 @@ void fill(int n, int m, int a[n][m])
 void print(int n, int m, int a[n][m])
 {
     int i, j;
-    printf("Starting matrix: \n");
+    printf("Матрица: \n");
     for (i = 0; i < n; i++)
     {
         for (j = 0; j < m; j++)
@@ -43,7 +43,7 @@ int summ(int n,int m, int a[n][m])
             if(i-1==j)
                 dia+=a[i][j];
     }
-    printf("%d",dia);
+    printf("Сумма: = %d\n",dia);
     return dia;
 }
 void trans(int n,int m,int a[n][m],int r[m][n])
@@ -55,34 +55,50 @@ void trans(int n,int m,int a[n][m],int r[m][n])
 }
 int printtrans(int m,int n,int r[m][n])
 {
-   for(int i=0;i<m;i++)//Печатаем транспонированный массив
+   for(int i=0;i<m;i++)
    {
       printf("\n");
       for(int j=0;j<n;j++)
       printf("%-3d ",r[i][j]);
    }
-      printf("\n"); 
+      printf("\n "); 
      return 0;
+}
+void zero(int m,int n,int a[n][m]){
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < m; j++)
+    {
+      while (i == j && i + j == n - 1)
+        a[i][j] = 0;
+      
+    }
+  }
+    
 }
 int main()
 {
     srand(time(NULL));
-    int n,m,P;
-    printf("Задайте значение: ");
+    int n,m,P,y;
+    printf("Задайте значение: \n");
     scanf("%d",&n);
     scanf("%d",&m);
     int a[n][m];
     int r[n][m];
     fill(n,m,a);
     print(n,m,a);
-    summ(n,m,a);
-    printf("Ввидите чилсо-> ");
+    y=summ(n,m,a);
+    printf("\nВвидите чилсо-> ");
     scanf("%d",&P);
-    if(summ(n,m,a)>P){
-       trans(n,m,a,r);
-    printtrans(m,n,r); 
+    if(y>P)
+    {
+      printf("Транспонированая матрица: \n");
+      trans(n,m,a,r);
+     printtrans(m,n,r);
+       
     }
     else
-    
-    return 0;
+      zero(n,m,a);
+      print(n,m,a);
+   return 0;
 }
