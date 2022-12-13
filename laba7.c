@@ -64,14 +64,15 @@ int printtrans(int m,int n,int r[m][n])
       printf("\n "); 
      return 0;
 }
-void zero(int m,int n,int a[n][m]){
+void zero(int n,int m,int a[n][m]){
   for (int i = 0; i < n; i++)
   {
     for (int j = 0; j < m; j++)
     {
-      while (i == j && i + j == n - 1)
-        a[i][j] = 0;
-      
+        if(i!=j && i+1!=j && i != j+1) 
+        {
+            a[i][j]=0; 
+        }
     }
   }
     
