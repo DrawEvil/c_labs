@@ -24,28 +24,28 @@ int main()
     char input = mygetch(), avg = input;
     int i = 0, summ = 0;
 
-    // while(1)
-    // {
+    while(1)
+    {
 
     
-    //     printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-    //     input = mygetch();
-    //     //fflush(stdin);
-    //     __fpurge(stdin);  
+        printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
+         input = mygetch();
+         //fflush(stdin);
+     __fpurge(stdin);  
 
-    //     printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-    //     input = mygetch();
-    //     __fpurge(stdin);      
+         printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
+         input = mygetch();
+         __fpurge(stdin);      
 
-    //     printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-    //     input = mygetch();
-    //     __fpurge(stdin); 
+        printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
+         input = mygetch();
+         __fpurge(stdin); 
 
-    //     printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-    //     input = mygetch();
-    //     __fpurge(stdin); 
+         printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
+         input = mygetch();
+         __fpurge(stdin); 
 
-    // }
+     }
 
     while(1)
     {
@@ -68,14 +68,14 @@ int main()
             i++;
             summ += input;
 
-            //printf("Summ symbol: %c, code: %d\n\n", avg, (int)avg);
+            printf("Summ symbol: %c, code: %d\n\n", avg, (int)avg);
 
             avg = (char)round((double)summ / (double)(i));
             system("clear");
             
-            // printf("symbol: %c\n", input);
-            // printf("Summ: %d\n", summ);
-            // printf("Delenie: %lf\n", (double)summ / (double)(i));
+            printf("symbol: %c\n", input);
+            printf("Summ: %d\n", summ);
+            printf("Delenie: %lf\n", (double)summ / (double)(i));
 
             printf("%c\n", avg);
         }
@@ -83,6 +83,6 @@ int main()
         
     }
 
-    //getchar();
+    getchar();
     return 0;
 }
