@@ -1,10 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
+##include <termios.h>
 #include <unistd.h>
-#include <ctype.h>
-#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <stdio_ext.h>
+#include <ctype.h>
+
+#define TRUE 1
+#define FALSE 0
+typedef char bool;
 
 int mygetch()
 {
@@ -19,70 +22,88 @@ int mygetch()
     return c;
 }
 
+bool sym_valid(char c)
+{
+    return isdigit(c) || c == '-' || c == 'e' || c == '.';
+}
+
 int main()
 {
-    char input = mygetch(), avg = input;
-    int i = 0, summ = 0;
+    bool is_ctrl = FALSE, is_first_ctrl_entered = FALSE;
+    char first_ctrl, second_ctrl;
+    int points_count = 0;
+    int exponent_count = 0;
+    bool all_syms_valid = TRUE;
+    bool begin_enter_number = FALSE;
 
-    while(1)
+    while (1)
     {
+        char c = mygetch();
 
-    
-        printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-         input = mygetch();
-         //fflush(stdin);
-     __fpurge(stdin);  
-
-         printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-         input = mygetch();
-         __fpurge(stdin);      
-
-        printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-         input = mygetch();
-         __fpurge(stdin); 
-
-         printf("Summ symbol: %c, code: %d\n\n", input, (int)input);
-         input = mygetch();
-         __fpurge(stdin); 
-
-     }
-
-    while(1)
-    {
-
-        if(input == 27) //Functional key
+        if (isprint(c) && !is_ctrl)
         {
-            input = mygetch();
-            input = mygetch();
-            if(input == 80)
-            {
-                system("clear");
-                printf("F1 was pressed!\n");
-                break;
-            }
-            __fpurge(stdin);
+            printf("%c", c);
 
-        }
-        else
-        {   
-            i++;
-            summ += input;
+            if (isspace(c))
+                continue;
 
-            printf("Summ symbol: %c, code: %d\n\n", avg, (int)avg);
-
-            avg = (char)round((double)summ / (double)(i));
-            system("clear");
+            if (!sym_valid(c))
+                all_syms_valid = FALSE;
             
-            printf("symbol: %c\n", input);
-            printf("Summ: %d\n", summ);
-            printf("Delenie: %lf\n", (double)summ / (double)(i));
-
-            printf("%c\n", avg);
+            if (c == '.')
+            {
+                points_count++;
+                if (exponent_count > 0)
+                    all_syms_valid = FALSE;
+            }
+            
+            if (isdigit(c) || c == '.')
+                begin_enter_number = TRUE;
+            
+            if (c == '-')
+            {
+                if (begin_enter_number)
+                    all_syms_valid = FALSE;
+                else
+                    begin_enter_number = TRUE;
+            }
+            
+            if (c == 'e')
+            {
+                exponent_count++;
+                begin_enter_number = FALSE;
+            }
         }
-        input = mygetch();
-        
+
+        else // !isprint(c) || is_ctrl
+        {
+            if (c == 0x1b) // escape
+            {
+                is_ctrl = TRUE;
+                continue;
+            }
+            
+            if (is_ctrl && !is_first_ctrl_entered)
+            {
+                first_ctrl = c;
+                is_first_ctrl_entered = TRUE;
+            }
+            else if (is_ctrl) // second entered
+            {
+                is_ctrl = FALSE;
+                is_first_ctrl_entered = FALSE;
+                second_ctrl = c;
+
+                __fpurge(stdin);
+
+                if (first_ctrl == '[' && second_ctrl == 'F')
+                    break; //while loop
+            }
+        }
     }
 
-    getchar();
-    return 0;
+    if (all_syms_valid && points_count <= 1 && exponent_count <= 1 && begin_enter_number == TRUE)
+        printf ("\nВведено вещественное число.\n");
+    else
+        printf ("\nВведённые символы — не число.\n");
 }
