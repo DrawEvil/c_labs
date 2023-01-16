@@ -81,5 +81,35 @@ int main()
     }
     printf("\n");
     printf("count = %d", count);
-    return 0;
+    return void getch_to_tilda()
+{
+    int c;
+    do
+    {
+        c = mygetch();
+    } while (c != '~');
+}
+
+void skip_functional_key()
+{
+    int symType = mygetch();
+    switch (symType)
+    {
+        case '[':
+            int termType = mygetch();
+            if (termType == '1')
+            {
+                int secondChar = mygetch();
+                if (isdigit(secondChar))
+                    getch_to_tilda();
+            }
+            else if (isdigit(termType))
+                getch_to_tilda();
+            break;
+
+        case 'O':
+            mygetch();
+            break;
+    }
+}
 
