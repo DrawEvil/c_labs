@@ -85,7 +85,7 @@ int main()
     scanf("%d",&n);
     scanf("%d",&m);
     int a=(int)malloc(nsizeof(int));;
-    intr=(int )malloc(nsizeof(int));;
+    int r=(int )malloc(nsizeof(int));;
     fill(n,m,a);
     print(n,m,a);
     y=summ(n,m,a);
