@@ -91,6 +91,8 @@ int main()
     y=summ(n,m,a);
     printf("\nВвидите чилсо-> ");
     scanf("%d",&P);
+    free(a);
+    free(r);
     if(y>P)
     {
       printf("Транспонированая матрица: \n");
